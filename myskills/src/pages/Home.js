@@ -8,6 +8,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { ButtonAdd } from '../components/ButtonAdd';
+import { FlashCards } from '../components/FlashCards';
 
 
 export  function Home(){
@@ -36,12 +37,8 @@ function handleAddNewSkill(){
         </Text>
 
        {
-            mySkills.map(skill =>(
-                <TouchableOpacity key={skill} style={styles.buttonSkill}>
-                  <Text style={styles.textSkill}>
-                  {skill}
-                  </Text>
-                </TouchableOpacity>
+          mySkills.map(skill =>(
+               <FlashCards skill={skill}/>
             ))
         }
       </View>
@@ -68,16 +65,5 @@ const styles = StyleSheet.create({
     marginTop: 30,
     borderRadius: 5,
   },
-  buttonSkill:{
-    backgroundColor: '#1F1E25',
-    padding: 10,
-    alignItems: 'center',
-    borderRadius: 50,
-    marginVertical: 5
-  },
-  textSkill:{
-    color: '#ffff',
-    fontSize: 20,
-    fontWeight: 'bold'
-  }
+  
 });
