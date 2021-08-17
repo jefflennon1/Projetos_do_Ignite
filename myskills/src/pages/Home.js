@@ -5,7 +5,7 @@ import {
   StyleSheet,
   TextInput,
   Platform,
-  TouchableOpacity
+  FlatList
 } from 'react-native';
 import { ButtonAdd } from '../components/ButtonAdd';
 import { FlashCards } from '../components/FlashCards';
@@ -35,12 +35,14 @@ function handleAddNewSkill(){
         <Text style={[styles.title, {marginVertical: 50}]}>
           My Skillss
         </Text>
-
-       {
-          mySkills.map(skill =>(
-               <FlashCards skill={skill}/>
-            ))
-        }
+      <FlatList
+        data={mySkills}
+        keyExtractor={item=> item}
+        renderItem={({item})=>(
+          <FlashCards skill={item}/>
+        )}
+      />
+       
       </View>
   </>
   )
