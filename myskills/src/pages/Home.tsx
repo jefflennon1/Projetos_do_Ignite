@@ -10,14 +10,22 @@ import {
 import { ButtonAdd } from '../components/ButtonAdd';
 import { FlashCards } from '../components/FlashCards';
 
+interface SkillData{
+  id: string;
+  name: string;
+}
 
 export  function Home(){
 const [newSkill, setNewSkill] = useState('');
-const [mySkills, setMySkills] = useState([]);
+const [mySkills, setMySkills] = useState<SkillData[]>([]);
 const [greeting, setGreeting] = useState('');
 
 function handleAddNewSkill(){
-  setMySkills( oldState => [...oldState, newSkill]);
+  const data ={
+    id: String(new Date().getTime()),
+    name: newSkill
+  }
+  setMySkills( oldState => [...oldState, data]);
 }
 useState(()=>{
   const currentHour = new Date().getHours();
@@ -28,7 +36,7 @@ useState(()=>{
   }else{
     setGreeting('Good night!')
   }
-}, [greeting])
+}, [])
 
   return(
     <>
@@ -51,9 +59,9 @@ useState(()=>{
         </Text>
       <FlatList
         data={mySkills}
-        keyExtractor={item=> item}
+        keyExtractor={item=> item.id}
         renderItem={({item})=>(
-          <FlashCards skill={item}/>
+          <FlashCards skill={item.name}/>
         )}
       />
        
