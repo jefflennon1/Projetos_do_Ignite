@@ -21,12 +21,18 @@ const [mySkills, setMySkills] = useState<SkillData[]>([]);
 const [greeting, setGreeting] = useState('');
 
 function handleAddNewSkill(){
-  const data ={
-    id: String(new Date().getTime()),
-    name: newSkill
-  }
-  setMySkills( oldState => [...oldState, data]);
+    const data ={
+      id: String(new Date().getTime()),
+      name: newSkill
+    }
+    setMySkills( oldState => [...oldState, data]);
 }
+function handleRemoveSkill(id : string){
+    setMySkills( oldstate => oldstate.filter(
+       skill => id != skill.id
+    ))
+}
+
 useState(()=>{
   const currentHour = new Date().getHours();
   if(currentHour < 12){
@@ -36,7 +42,7 @@ useState(()=>{
   }else{
     setGreeting('Good night!')
   }
-}, [])
+},  )
 
   return(
     <>
@@ -52,7 +58,10 @@ useState(()=>{
         onChangeText={setNewSkill}
         />
 
-       <ButtonAdd  onPress={handleAddNewSkill}/>
+       <ButtonAdd  
+        onPress={handleAddNewSkill} 
+        title="Add"
+        />
 
         <Text style={[styles.title, {marginVertical: 50}]}>
           My Skillss
@@ -61,7 +70,10 @@ useState(()=>{
         data={mySkills}
         keyExtractor={item=> item.id}
         renderItem={({item})=>(
-          <FlashCards skill={item.name}/>
+          <FlashCards
+             skill={item.name}
+             onPress={()=> handleRemoveSkill(item.id)}
+          />
         )}
       />
        
